@@ -46,7 +46,7 @@ switch (option) {
                 selectionSpaceships();
         break;
         case 3:
-                startOurInterPlanetaryJourney();
+                startOurInterPlanetaryJourney(scanner);
         break;        
         default:
          break;
@@ -55,8 +55,7 @@ switch (option) {
                  System.out.println("Have a good trip, maybe another time.");
                 }
                 //start with the journey
-private static void startOurInterPlanetaryJourney() {
-    int option = scanner.nextInt();    
+private static void startOurInterPlanetaryJourney(Scanner scanner) {
     System.out.println("Please fasten your seatbelts, the journey has begun");  
     while (!spaceshipDestination && HealthStatus > 0 && fuel > 0 && meal > 0 && water > 0){
      // Options menu for the crew member.
@@ -64,6 +63,7 @@ private static void startOurInterPlanetaryJourney() {
      System.out.println("1. I choose to do nothing and just observe.");
      System.out.println("2. I'm going to perform maintenance on the spaceship.");
      System.out.println("3. I'm going to change course");
+     int option= scanner.nextInt();
          switch (option) {
             case 1:
             System.out.println("You decided to do nothing and watch."); 
@@ -78,7 +78,7 @@ private static void startOurInterPlanetaryJourney() {
                              }
                         }              
                     }
-                    //We created a method to be able to maintain the spaceship.
+ //We created a method to be able to maintain the spaceship.
 private static void makeRepairs() {
  if (HealthStatus <=100) {
     HealthStatus += 20;
@@ -89,7 +89,9 @@ private static void makeRepairs() {
     
  }                         
 }
-                //We perform private classes for each option and call the method
+
+
+//We perform private classes for each option and call the method
 private static void selectionSpaceships() {
         System.out.println("Please select the spaceship you like the most: ");
         System.out.println("1. ATLANTIS");
@@ -155,8 +157,5 @@ default:
 break;
             }
 }
-
-
-
 
 }      
