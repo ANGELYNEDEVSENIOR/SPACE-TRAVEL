@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class TravelToSpace {
     public static void main(String[] args) {
-        
+ //realizamos un show menu       
     }
     public static void ShowMenu() {
         System.out.println("\n---WELCOME TO OUR INTERPLANETARY JOURNEY---- ");
@@ -24,3 +24,24 @@ static Double[] speed = { 1000.0, 2100.0, 2700.0, 3400.0 };
 
  static Scanner scanner = new Scanner(System.in);
     }
+    public static void main(String[] args) throws Exception {
+        int option;
+        do {
+            //realizamos metodo
+        ShowMenu();
+        option = scanner.nextInt();
+        switch (option) {
+                case 1:
+                        printPlanetString();
+                break;
+                case 2:
+                        selectionSpaceships();
+                break;
+                        
+                default:
+                break;
+        }
+        } while (option != 4);
+         System.out.println("Have a good trip, maybe another time.");
+        }
+        
