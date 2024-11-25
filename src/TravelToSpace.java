@@ -42,8 +42,8 @@ int option;
 //add a new method to provide several possible options for the user to select
 while(true){
 ShowMenu();
-int option = entranceValide(scanner, 1, 5);
-switch (option) {
+int decided = entranceValide(scanner, 1, 5);
+switch (decided) {
         case 1:
                 printPlanetString();
         break;
@@ -65,83 +65,86 @@ switch (option) {
 
 private static int entranceValide(Scanner scanner, int min, int max) {
     int entrance;
-        while (true) {
-            try {
-                entrance = Integer.parseInt(scanner.nextLine());
-                if (entrance >= min && entrance <= max) {
-                    return entrance;
-                } else {
-                    System.out.print("Por favor, ingrese un número entre " + min + " y " + max + ": ");
-                }
-            } catch (NumberFormatException e) {
-                System.out.print("Entrada no válida. Intente nuevamente: ");
-            }
-        }
+    while (true) {
+    try {
+    //Integer.parseInt(...) intenta convertir esa entrada de texto en un número entero (int).
+    entrance = Integer.parseInt(scanner.nextLine());
+    if (entrance >= min && entrance <= max) {
+     return entrance;
+     } else {
+     System.out.print("Por favor, ingrese un número entre " + min + " y " + max + ": ");
+     }
+//In this case, the catch block catches the exception and displays a message to the user 
+//indicating that the input is invalid. The loop then repeats, again asking the user to try valid input.
+     } catch (NumberFormatException e) {
+      System.out.print("Entrada no válida. Intente nuevamente: ");
+ }
+ }
 }
 
 //We create a method so that the user can choose their resources  
 private static void resources(Scanner scanner) {
  System.out.print("How many resources do you need for each element (0-100 %)?");   
  int amount = entranceValide(scanner, 0, 100);
- fuel += amount;
- water += amount;
- meal += amount;
+ fuel = amount;
+ water = amount;
+ meal = amount;
  System.out.println("you have adjusted the fuel to: "+ fuel + "%");   
  System.out.println("you have adjusted the water to: "+ water + "%");     
  System.out.println("have you adjusted the food to: "+ meal + "%");  
-           }
+ }
            
-           //start with the journey
+//start with the journey
 private static void startOurInterPlanetaryJourney(Scanner scanner) {
-    System.out.println("Please fasten your seatbelts, the journey has begun");  
-    while (!spaceshipDestination && HealthStatus > 0 && fuel > 0 && meal > 0 && water > 0){
-        simulations();
-        showTripStatus();
-                     // Options menu for the crew member.
-                     System.out.print("\n What do you want to do?");
-                     System.out.println("1. I choose to do nothing and just observe.");
-                     System.out.println("2. I'm going to perform maintenance on the spaceship.");
-                     System.out.println("3. I'm going to change course");
-                     int option= entranceValide(scanner, 1, 3);
-                         switch (option) {
-                            case 1:
-                            System.out.println("You decided to do nothing and watch."); 
-                                break;
-                                case 2:
-                                if (fuel >= 10) {
-                                    makeRepairs();   
-                                }else{
-                                    System.out.println("You no longer have resources!!!!");
-                                }
-                                case 3: 
-                                changeCourse();
-                                break;            
-                                default:
-                                System.out.println("This option is not valid");
-                                break;
-                                            }
-                //trip in progress
-                distanceTraveled += 10;
-                fuel -= 5;
-                meal -= 5;
-                water -= 5;  
+System.out.println("Please fasten your seatbelts, the journey has begun");  
+while (!spaceshipDestination && HealthStatus > 0 && fuel > 0 && meal > 0 && water > 0){
+ simulations();
+ showTripStatus();
+ // Options menu for the crew member.
+ System.out.println("\n What do you want to do?");
+System.out.println("1. I choose to do nothing and just observe.");
+System.out.println("2. I'm going to perform maintenance on the spaceship.");
+System.out.println("3. I'm going to change course");
+int option= entranceValide(scanner, 1, 3);
+     switch (option) {
+    case 1:
+    System.out.println("You decided to do nothing and watch."); 
+     break;
+     case 2:
+    if (fuel >= 10) {
+     makeRepairs();   
+    }else{
+     System.out.println("You no longer have resources!!!!");
+     }
+     case 3: 
+    changeCourse();
+     break;            
+    default:
+System.out.println("This option is not valid");
+ break;
+ }
+ //trip in progress
+distanceTraveled += 10;
+fuel -= 5;
+meal -= 5;
+water -= 5;  
                 
-                if(distanceTraveled >= distanceTotal){
-                    spaceshipDestination = true;
-                    System.out.println("Congratulations, you have successfully reached your destination.");
-                }
-                 }   
-                 //We use the following cycle to define the limit of the special trip, when the resources are less than or equal to 0
-                 if(HealthStatus <= 0){
-                    System.out.println("The spaceship has just suffered permanent damage. This is the end of your journey");    
-                 }else if (fuel > 0 && meal > 0 && water > 0){
-                System.out.println("Sorry, you're out of resources.The journey is over");
-                 }
-                 }
+if(distanceTraveled >= distanceTotal){
+spaceshipDestination = true;
+ System.out.println("Congratulations, you have successfully reached your destination.");
+ }
+ }   
+ //We use the following cycle to define the limit of the special trip, when the resources are less than or equal to 0
+if(HealthStatus <= 0){
+System.out.println("The spaceship has just suffered permanent damage. This is the end of your journey");    
+}else if (fuel > 0 && meal > 0 && water > 0){
+System.out.println("Sorry, you're out of resources.The journey is over");
+}
+}
 private static void showTripStatus() {
 //We created a method to show the journey of space travel and everything that is being done          
 double progress = (double)distanceTraveled / distanceTotal * 100;
-System.out.print("\n space travel progress: " + String.format("%.2f", progress) + "%");
+System.out.println("\n space travel progress: " + String.format("%.2f", progress) + "%");
 System.out.println("This is your available fuel: " + fuel);
 System.out.println("This is your water level: " + water);
 System.out.println("This is your food level: " + meal);
@@ -180,9 +183,6 @@ System.out.println("this is your state: " + HealthStatus + "/100");
        break;
 
     }      
-
-
-
         }
         //We created a new method to change course.
 private static void changeCourse() {
