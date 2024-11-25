@@ -81,8 +81,24 @@ private static void startOurInterPlanetaryJourney(Scanner scanner) {
                 System.out.println("This option is not valid");
                 break;
                             }
-                            }              
-                        }
+//trip in progress
+distanceTraveled += 10;
+fuel -= 5;
+meal -= 5;
+water -= 5;  
+
+if(distanceTraveled >= distanceTotal){
+    spaceshipDestination = true;
+    System.out.println("Congratulations, you have successfully reached your destination.");
+}
+ }   
+ //We use the following cycle to define the limit of the special trip, when the resources are less than or equal to 0
+ if(HealthStatus <= 0){
+    System.out.println("The spaceship has just suffered permanent damage. This is the end of your journey");    
+ }else if (fuel > 0 && meal > 0 && water > 0){
+System.out.println("Sorry, you're out of resources.The journey is over");
+ }
+ }
     //We created a new method to change course.
 private static void changeCourse() {
     distanceTraveled += 20;
@@ -170,20 +186,10 @@ break;
 default:
  System.out.println("Wrong option, there are no planets anymore, remember?");
 break;
-            }
-
-
-//trip in progress
-distanceTraveled += 10;
-fuel -= 5;
-meal -= 5;
-water -= 5;  
-if(distanceTraveled >= distanceTotal){
-    spaceshipDestination = true;
-    System.out.println("Congratulations, you have successfully reached your destination.");
+ }
 
 }
-}
+
 }
 
      
