@@ -4,8 +4,8 @@ import java.util.Scanner;
 
 //  [] {} \
 public class TravelToSpace {
-        // We write the actions and modulate them to structure them better.
-        private static int distanceTotal = 100; 
+// We write the actions and modulate them to structure them better.
+private static int distanceTotal = 100; 
 private static int distanceTraveled = 0; // distance traveled
 private static int HealthStatus = 100; // It is the state of each person in the crew.
 //We carry out private classes to indicate the resources we need and the percentage that each one has
@@ -13,6 +13,8 @@ private static int fuel = 100;
 private static int meal = 100;
 private static int water = 100;
 private static boolean spaceshipDestination = false;
+
+
 public static void ShowMenu() {
         System.out.println("\n---WELCOME TO OUR INTERPLANETARY JOURNEY---- ");
         System.out.println("\n --- Main Menu----");
@@ -38,9 +40,9 @@ static Double[] speed = { 1000.0, 2100.0, 2700.0, 3400.0 };
 public static void main(String[] args) throws Exception {
 int option;
 //add a new method to provide several possible options for the user to select
-do {
+while(true){
 ShowMenu();
-option = scanner.nextInt();
+int option = entranceValide(scanner, 1, 5);
 switch (option) {
         case 1:
                 printPlanetString();
@@ -52,18 +54,41 @@ switch (option) {
                 startOurInterPlanetaryJourney(scanner);
         break;
         case 4: 
-           resources(scanner);
-                           break;      
-                           default:
-                           System.out.println("invalid option");
-                            break;
-                   }
-                   } while (option != 6);
-                    System.out.println("Have a good trip, maybe another time.");
-                   }
-  //We create a method so that the user can choose their resources  
-private static void resources(Scanner scanner2) {
-               
+              resources(scanner);
+        break;      
+        default:
+        System.out.println("invalid option");
+        break;
+}
+}
+}
+
+private static int entranceValide(Scanner scanner, int min, int max) {
+    int entrance;
+        while (true) {
+            try {
+                entrance = Integer.parseInt(scanner.nextLine());
+                if (entrance >= min && entrance <= max) {
+                    return entrance;
+                } else {
+                    System.out.print("Por favor, ingrese un número entre " + min + " y " + max + ": ");
+                }
+            } catch (NumberFormatException e) {
+                System.out.print("Entrada no válida. Intente nuevamente: ");
+            }
+        }
+}
+
+//We create a method so that the user can choose their resources  
+private static void resources(Scanner scanner) {
+ System.out.print("How many resources do you need for each element (0-100 %)?");   
+ int amount = entranceValide(scanner, 0, 100);
+ fuel += amount;
+ water += amount;
+ meal += amount;
+ System.out.println("you have adjusted the fuel to: "+ fuel + "%");   
+ System.out.println("you have adjusted the water to: "+ water + "%");     
+ System.out.println("have you adjusted the food to: "+ meal + "%");  
            }
            
            //start with the journey
@@ -73,11 +98,11 @@ private static void startOurInterPlanetaryJourney(Scanner scanner) {
         simulations();
         showTripStatus();
                      // Options menu for the crew member.
-                     System.out.println("\n What do you want to do?");
+                     System.out.print("\n What do you want to do?");
                      System.out.println("1. I choose to do nothing and just observe.");
                      System.out.println("2. I'm going to perform maintenance on the spaceship.");
                      System.out.println("3. I'm going to change course");
-                     int option= scanner.nextInt();
+                     int option= entranceValide(scanner, 1, 3);
                          switch (option) {
                             case 1:
                             System.out.println("You decided to do nothing and watch."); 
@@ -116,7 +141,7 @@ private static void startOurInterPlanetaryJourney(Scanner scanner) {
 private static void showTripStatus() {
 //We created a method to show the journey of space travel and everything that is being done          
 double progress = (double)distanceTraveled / distanceTotal * 100;
-System.out.println("\n space travel progress: " + String.format("%.2f", progress) + "%");
+System.out.print("\n space travel progress: " + String.format("%.2f", progress) + "%");
 System.out.println("This is your available fuel: " + fuel);
 System.out.println("This is your water level: " + water);
 System.out.println("This is your food level: " + meal);
