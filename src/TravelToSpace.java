@@ -69,26 +69,41 @@ private static void startOurInterPlanetaryJourney(Scanner scanner) {
             System.out.println("You decided to do nothing and watch."); 
                 break;
                 case 2:
-                if (fuel >= 20) {
+                if (fuel >= 10) {
                     makeRepairs();   
-                                    }
-                             
-                                default:
-                                    break;
-                             }
-                        }              
-                    }
- //We created a method to be able to maintain the spaceship.
-private static void makeRepairs() {
- if (HealthStatus <=100) {
-    HealthStatus += 20;
+                }else{
+                    System.out.println("You no longer have resources!!!!");
+                }
+                case 3: 
+                changeCourse();
+                break;            
+                default:
+                System.out.println("This option is not valid");
+                break;
+                            }
+                            }              
+                        }
+    //We created a new method to change course.
+private static void changeCourse() {
+    distanceTraveled += 20;
     fuel -= 20;
-    meal -=10;
-    water -=10;
-    System.out.println("Perfect, you've fixed the spaceship and your resources are perfect.");
-    
- }                         
+    meal -=15;
+    water -=15;  
+    System.out.println("We inform you that we have successfully changed course.");                   
 }
+                //We created a method to be able to maintain the spaceship.
+private static void makeRepairs() {
+ if (HealthStatus < 100) {
+    HealthStatus += 20;
+    fuel -= 10;
+    meal -= 10;
+    water -= 10;
+ }else{
+    System.out.println("You have repaired the spaceship and improved its condition.");
+ }
+    System.out.println("Perfect, you've fixed the spaceship and your resources are perfect.");   
+ }                         
+
 
 
 //We perform private classes for each option and call the method
