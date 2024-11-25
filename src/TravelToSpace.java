@@ -37,14 +37,16 @@ switch (option) {
         case 2:
                 selectionSpaceships();
         break;
-                
-        default:
-        break;
-}
-} while (option != 4);
- System.out.println("Have a good trip, maybe another time.");
-}
-//We perform private classes for each option and call the method
+        case 3:
+                startOurInterplanetaryJourney();
+                        break;        
+                        default:
+                        break;
+                }
+                } while (option != 4);
+                 System.out.println("Have a good trip, maybe another time.");
+                }
+                //We perform private classes for each option and call the method
 private static void selectionSpaceships() {
         System.out.println("Please select the spaceship you like the most: ");
         System.out.println("1. ATLANTIS");
@@ -110,19 +112,25 @@ default:
 break;
             }
 }
-                
-
-public static void selectionDestination() {
+private static int distanceTraveled = 0; // distance traveled
+private static int HealthStatus = 100; // It is the state of each person in the crew.
+//We carry out private classes to indicate the resources we need and the percentage that each one has
+private static int fuel = 100;
+private static int meal = 100;
+private static int water = 100;
+private static boolean spaceshipDestination = false;
+//start with the journey
+private static void startOurInterplanetaryJourney() {
+    int option = scanner.nextInt();    
+    System.out.println("Please fasten your seatbelts, the journey has begun");  
+    while (!spaceshipDestination && HealthStatus > 0 && fuel > 0 && meal > 0 && water > 0){
+     // Options menu for the crew member.
+     System.out.println("\n What do you want to do?");
+     System.out.println("1. I choose to do nothing and just observe.");
+     System.out.println("2. I'm going to perform maintenance on the spaceship.");
+     System.out.println("3. I'm going to change course");
+         
+    }              
 }
 
-public static void calculateResources() {
-}
-
-public static void calculateFuel() {
-}
-
-
-public static void printPlanetString(String[] planets) {
-}
-
-}
+}      
