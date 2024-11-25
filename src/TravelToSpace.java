@@ -4,7 +4,7 @@ import java.util.Scanner;
 //  [] {} \
 public class TravelToSpace {
         // We write the actions and modulate them to structure them better.
-
+        private static int distanceTotal = 100; 
 private static int distanceTraveled = 0; // distance traveled
 private static int HealthStatus = 100; // It is the state of each person in the crew.
 //We carry out private classes to indicate the resources we need and the percentage that each one has
@@ -171,6 +171,19 @@ default:
  System.out.println("Wrong option, there are no planets anymore, remember?");
 break;
             }
+
+
+//trip in progress
+distanceTraveled += 10;
+fuel -= 5;
+meal -= 5;
+water -= 5;  
+if(distanceTraveled >= distanceTotal){
+    spaceshipDestination = true;
+    System.out.println("Congratulations, you have successfully reached your destination.");
+
+}
+}
 }
 
-}      
+     
