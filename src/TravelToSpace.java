@@ -19,7 +19,9 @@ public static void ShowMenu() {
         System.out.println("1. select the planet you want to visit");
         System.out.println("2. Select a spaceship");
         System.out.println("3. start our interplanetary journey");
-        System.out.println("4. I'M NOT READY! I WANT TO GO OUT");
+        System.out.println("4. I need to adjust resources");
+        System.out.println("5. I want you to show me the progress of my journey.");
+        System.out.println("6. I'M NOT READY! I WANT TO GO OUT");
         System.out.println("please choose an option: ");
         }
         
@@ -48,14 +50,23 @@ switch (option) {
         break;
         case 3:
                 startOurInterPlanetaryJourney(scanner);
-        break;        
-        default:
-         break;
-                }
-                } while (option != 4);
-                 System.out.println("Have a good trip, maybe another time.");
-                }
-                //start with the journey
+        break;
+        case 4: 
+           resources(scanner);
+                           break;      
+                           default:
+                           System.out.println("invalid option");
+                            break;
+                   }
+                   } while (option != 6);
+                    System.out.println("Have a good trip, maybe another time.");
+                   }
+  //We create a method so that the user can choose their resources  
+private static void resources(Scanner scanner2) {
+               
+           }
+           
+           //start with the journey
 private static void startOurInterPlanetaryJourney(Scanner scanner) {
     System.out.println("Please fasten your seatbelts, the journey has begun");  
     while (!spaceshipDestination && HealthStatus > 0 && fuel > 0 && meal > 0 && water > 0){
@@ -109,7 +120,7 @@ System.out.println("\n space travel progress: " + String.format("%.2f", progress
 System.out.println("This is your available fuel: " + fuel);
 System.out.println("This is your water level: " + water);
 System.out.println("This is your food level: " + meal);
-System.out.println("this is your state: " + HealthStatus);
+System.out.println("this is your state: " + HealthStatus + "/100");
         }
         
                 //creation of random events or simulations 
