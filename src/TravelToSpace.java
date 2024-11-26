@@ -56,63 +56,73 @@ switch (decided) {
         if (selectPlanet != -1) {
                 selectedSpaceship = selectionSpaceships(scanner);
                 passengers = enterPassengers(scanner);   
-        }else{
-                System.out.println("first you have to select a planet");
-        }
-        
+         }else{
+        System.out.println("first you have to select a planet");
+         }
+                        
         break;
          case 3:
-         if (selectPlanet != -1 && selectedSpaceship != -1) {
-                startOurInterPlanetaryJourney(selectPlanet, selectedSpaceship, passengers);
-            } else {
-                System.out.println("You must select a planet and a ship before starting the journey.");
-            }
-            break;
-                 
+        if (selectPlanet != -1 && selectedSpaceship != -1) {
+        startOurInterPlanetaryJourney(selectPlanet, selectedSpaceship, passengers);
+        } else {
+        System.out.println("You must select a planet and a ship before starting the journey.");
+        }
         break;
+                                 
         case 4: 
-                resources(scanner);
+        resources(scanner);
         break;      
         default:
         System.out.println("invalid option");
         break;
-             }
-             }
-             }
-             
- private static int selectedPlanet(Scanner scanner) {
-         System.out.println("\n=== planet selection ===");
-         for (int i = 0; i < planet.length; i++) {
-             System.out.printf("%d. %s (%.1f millions of km)\n", i + 1, planet[i], distance[i]);
          }
-         System.out.print("choose a planet please: ");
-         int opcion = scanner.nextInt();
-         if (opcion >= 1 && opcion <= planet.length) {
-             System.out.printf("you have selected: %s\n", planet[opcion - 1]);
-             return opcion - 1;
-         } else {
-             System.out.println("This option is not valid. I'm sorry");
-             return -1;
-         }
+        }
+        }
+                             
+private static int enterPassengers(Scanner scanner) {
+        System.out.print("\nIngresa la cantidad de pasajeros: ");
+        int passengers = scanner.nextInt();
+        if (passengers > 0) {
+            System.out.printf("Cantidad de pasajeros: %d\n", passengers);
+            return passengers;
+        } else {
+            System.out.println("La cantidad de pasajeros debe ser positiva.");
+            return enterPassengers(scanner);
+        }
+}
+////  This is a method for selecting a planet.        
+private static int selectedPlanet(Scanner scanner) {
+System.out.println("\n=== planet selection ===");
+for (int i = 0; i < planet.length; i++) {
+ System.out.printf("%d. %s (%.1f millions of km)\n", i + 1, planet[i], distance[i]);
+}
+System.out.print("choose a planet please: ");
+int opcion = scanner.nextInt();
+if (opcion >= 1 && opcion <= planet.length) {
+System.out.printf("you have selected: %s\n", planet[opcion - 1]);
+return opcion - 1;
+} else {
+System.out.println("This option is not valid. I'm sorry");
+return -1;
+}
         
-                    
-             }
+}
              
-             private static int entranceValide(Scanner scanner, int min, int max) {
-    int entrance;
-    while (true) {
-    try {
-    //Integer.parseInt(...) intenta convertir esa entrada de texto en un número entero (int).
-    entrance = Integer.parseInt(scanner.nextLine());
-    if (entrance >= min && entrance <= max) {
-     return entrance;
-     } else {
-     System.out.print("Por favor, ingrese un número entre " + min + " y " + max + ": ");
-     }
+ private static int entranceValide(Scanner scanner, int min, int max) {
+int entrance;
+while (true) {
+try {
+//Integer.parseInt(...) intenta convertir esa entrada de texto en un número entero (int).
+entrance = Integer.parseInt(scanner.nextLine());
+if (entrance >= min && entrance <= max) {
+return entrance;
+} else {
+System.out.print("Por favor, ingrese un número entre " + min + " y " + max + ": ");
+}
 //In this case, the catch block catches the exception and displays a message to the user 
 //indicating that the input is invalid. The loop then repeats, again asking the user to try valid input.
-     } catch (NumberFormatException e) {
-      System.out.print("Entrada no válida. Intente nuevamente: ");
+} catch (NumberFormatException e) {
+System.out.print("Entrada no válida. Intente nuevamente: ");
  }
  }
 }
@@ -191,35 +201,35 @@ System.out.println("this is your state: " + HealthStatus + "/100");
  private static void simulations() {
     int events = rand.nextInt(5);  
     //We will use 5 possible event simulations.
-    switch (events) {
-        case 1:
-          System.out.println("The spacecraft suffered a system failure. Your health has been affected."); 
-          HealthStatus -=20; 
-       break;
-       case 2:
-           System.out.println("You have found a supernova!!!"); 
-           System.out.println("you have gained more speed");
-           fuel +=10;
-       break;
-       case 3:
-       System.out.println("DANGER!!! A meteorite collided with the spacecraft.");
-       HealthStatus -=30;
-       fuel -=10;
-       water -=10;
-       meal -=15;
-       System.out.println("We lose resources");    
-       break;
-       case 4:
-           System.out.println("We pass too close to a black hole and lose fuel."); 
-           fuel -=20;
-       break;
-       case 5:
-           System.out.println("! A shooting star has passed very close! the spaceship continues on its way"); 
-       break;
+switch (events) {
+case 1:
+System.out.println("The spacecraft suffered a system failure. Your health has been affected."); 
+HealthStatus -=20; 
+break;
+case 2:
+System.out.println("You have found a supernova!!!"); 
+System.out.println("you have gained more speed");
+fuel +=10;
+break;
+case 3:
+System.out.println("DANGER!!! A meteorite collided with the spacecraft.");
+HealthStatus -=30;
+fuel -=10;
+water -=10;
+meal -=15;
+System.out.println("We lose resources");    
+break;
+case 4:
+ System.out.println("We pass too close to a black hole and lose fuel."); 
+fuel -=20;
+break;
+case 5:
+System.out.println("! A shooting star has passed very close! the spaceship continues on its way"); 
+break;
 
-    }      
-        }
-        //We created a new method to change course.
+}      
+}
+//We created a new method to change course.
 private static void changeCourse() {
     distanceTraveled += 20;
     fuel -= 20;
@@ -258,48 +268,5 @@ private static int selectionSpaceships(Scanner scanner) {
             System.out.println("Opción no válida. Intenta nuevamente.");
             return -1;
         }
-    }
-}
-
-//  This is a method for selecting a planet.              
-private static void printPlanetString() {
-        System.out.println("Select the planet you want: ");
-        System.out.println("1. The red planet: Mars");
-        System.out.println("2. The Goddess Planet: Venus");
-        System.out.println("3. The planet with a ring: Saturn");
-        System.out.println("4. The largest planet: Jupiter");
-        System.out.println("5. The most distant planet: Neptune");
-        System.out.println("6. The most periodic planet: Mercury");
-        System.out.println("7. The most forgotten planet: Uranus");
-        System.out.println("8. I'm terrified of traveling so I'll stay on earth!!!");
-        int option = scanner.nextInt();
-        switch (option) {
-case 1:
-System.out.println("Perfect, you have selected the planet Mars.");
-break;
- case 2:
-System.out.println("Perfect, you have selected the planet Venus.");
- break;
-case 3:
-System.out.println("Perfect, you have selected the planet Saturn.");
-break;
-case 4:
-System.out.println("Perfect, you have selected the planet Jupiter.");
-break;
-case 5:
-System.out.println("Perfect, you have selected the planet Neptune.");
-break;
-case 6:
-System.out.println("Perfect, you have selected the planet Mercury.");
-break;
-case 7:
-System.out.println("Perfect, you have selected the planet Uranus");
-break;
-default:
- System.out.println("Wrong option, there are no planets anymore, remember?");
-break;
- }
-
-}
-
+    }            
 }
