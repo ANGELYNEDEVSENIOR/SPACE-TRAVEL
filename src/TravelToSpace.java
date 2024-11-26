@@ -42,7 +42,7 @@ static Scanner scanner = new Scanner(System.in);
 public static void main(String[] args) throws Exception {
 int option;
 int  selectPlanet = -1;
-int selectionSpaceships = -1;
+int selectedSpaceship = -1;
 int passengers = 0;
 //add a new method to provide several possible options for the user to select
 while(true){
@@ -53,10 +53,22 @@ switch (decided) {
              selectPlanet = selectedPlanet(scanner);
         break;
         case 2:
-                selectionSpaceships();
+        if (selectPlanet != -1) {
+                selectedSpaceship = selectionSpaceships();
+                passengers = enterPassengers(scanner);   
+        }else{
+                System.out.println("first you have to select a planet");
+        }
+        
         break;
          case 3:
-                 startOurInterPlanetaryJourney(scanner);
+         if (selectPlanet != -1 && selectedSpaceship != -1) {
+                startOurInterPlanetaryJourney(selectPlanet, selectedSpaceship, passengers);
+            } else {
+                System.out.println("You must select a planet and a ship before starting the journey.");
+            }
+            break;
+                 
         break;
         case 4: 
                 resources(scanner);
@@ -118,7 +130,7 @@ private static void resources(Scanner scanner) {
  }
            
 //start with the journey
-private static void startOurInterPlanetaryJourney(Scanner scanner) {
+private static void startOurInterPlanetaryJourney(int selectedPlanet, int selectedSpaceship, int passengers) {
 System.out.println("Please fasten your seatbelts, the journey has begun");  
 while (!spaceshipDestination && HealthStatus > 0 && fuel > 0 && meal > 0 && water > 0){
  simulations();
@@ -158,7 +170,7 @@ spaceshipDestination = true;
  }
  }   
  //We use the following cycle to define the limit of the special trip, when the resources are less than or equal to 0
-if(HealthStatus <= 0){
+if(HealthStatus <= 10){
 System.out.println("The spaceship has just suffered permanent damage. This is the end of your journey");    
 }else if (fuel > 0 && meal > 0 && water > 0){
 System.out.println("Sorry, you're out of resources.The journey is over");
