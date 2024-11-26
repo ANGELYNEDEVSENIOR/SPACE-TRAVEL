@@ -181,16 +181,15 @@ public class TravelToSpace {
             }
         }
     }
-
-    // Método para mostrar el estado del viaje
-    private static void showTripStatus() {
+// Método para mostrar el estado del viaje
+     private static void showTripStatus() {
         System.out.println("Fuel: " + fuel + "%");
         System.out.println("Water: " + water + "%");
         System.out.println("Meal: " + meal + "%");
         System.out.println("Health: " + HealthStatus + "/100");
     }
-
-    // Método para eventos aleatorios durante el viaje
+ 
+// Método para eventos aleatorios durante el viaje
     private static void simulations() {
         int event = rand.nextInt(5); // Generar un evento aleatorio
         switch (event) {
