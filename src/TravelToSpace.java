@@ -47,7 +47,7 @@ int passengers = 0;
 //add a new method to provide several possible options for the user to select
 while(true){
 ShowMenu();
-int decided = entranceValide(scanner, 1, 5);
+int decided = entranceValide(scanner, 1, 7);
 switch (decided) {
         case 1:
              selectPlanet = selectedPlanet(scanner);
@@ -62,7 +62,8 @@ switch (decided) {
                         
         break;
          case 3:
-        if (selectPlanet != -1 && selectedSpaceship != -1) {
+        //selectPlanet != -1 && selectedSpaceship != -1 
+        if (selectPlanet != -1 && selectedSpaceship != -1 ) {
         startOurInterPlanetaryJourney(selectPlanet, selectedSpaceship, passengers);
         } else {
         System.out.println("You must select a planet and a ship before starting the journey.");
@@ -70,17 +71,24 @@ switch (decided) {
         break;
                                  
         case 4: 
-        resources(scanner);
-        break;      
+              resources(scanner);
+        break;  
+        case 5:
+              showTripStatus(); 
+              break;
+        case 6:
+        System.out.println("HASTA LUEGO!"); // Salir del programa
+         return; // Terminar el programa
         default:
-        System.out.println("invalid option");
-        break;
+              System.out.println("Invalid option. Try again."); // Manejo de entrada inválida
+           
          }
         }
         }
                              
 private static int enterPassengers(Scanner scanner) {
         System.out.print("\nIngresa la cantidad de pasajeros: ");
+        System.out.println("Recuerda que maximo pueden ir 7 personas");
         int passengers = scanner.nextInt();
         if (passengers > 0) {
             System.out.printf("Cantidad de pasajeros: %d\n", passengers);
@@ -111,7 +119,7 @@ return -1;
  private static int entranceValide(Scanner scanner, int min, int max) {
 int entrance;
 while (true) {
-try {
+        try{
 //Integer.parseInt(...) intenta convertir esa entrada de texto en un número entero (int).
 entrance = Integer.parseInt(scanner.nextLine());
 if (entrance >= min && entrance <= max) {
@@ -121,10 +129,10 @@ System.out.print("Por favor, ingrese un número entre " + min + " y " + max + ":
 }
 //In this case, the catch block catches the exception and displays a message to the user 
 //indicating that the input is invalid. The loop then repeats, again asking the user to try valid input.
-} catch (NumberFormatException e) {
-System.out.print("Entrada no válida. Intente nuevamente: ");
- }
- }
+}catch(NumberFormatException e){
+        
+}
+}
 }
 
 //We create a method so that the user can choose their resources  
@@ -139,59 +147,63 @@ private static void resources(Scanner scanner) {
  System.out.println("have you adjusted the food to: "+ meal + "%");  
  }
            
-//start with the journey
+///////////////////////start with the journey
 private static void startOurInterPlanetaryJourney(int selectedPlanet, int selectedSpaceship, int passengers) {
-System.out.println("Please fasten your seatbelts, the journey has begun");  
-while (!spaceshipDestination && HealthStatus > 0 && fuel > 0 && meal > 0 && water > 0){
- simulations();
- showTripStatus();
- // Options menu for the crew member.
- System.out.printf("Destino: %s\n", planet[selectedPlanet]);
- System.out.printf("Nave: %s\n", spaceships[selectedSpaceship]);
- System.out.printf("Distance: %.1f km\n", distance[distanceTraveled]);
-
- System.out.println("Simulación en progreso:");
- System.out.println("\n What do you want to do?");
-System.out.println("1. I choose to do nothing and just observe.");
-System.out.println("2. I'm going to perform maintenance on the spaceship.");
-System.out.println("3. I'm going to change course");
-int option= entranceValide(scanner, 1, 3);
-     switch (option) {
-    case 1:
-    System.out.println("You decided to do nothing and watch."); 
-     break;
-     case 2:
-    if (fuel >= 10) {
-     makeRepairs();   
-    }else{
-     System.out.println("You no longer have resources!!!!");
-     }
-     case 3: 
-    changeCourse();
-     break;            
-    default:
-System.out.println("This option is not valid");
- break;
-
- }
- //trip in progress
-distanceTraveled += 10;
-fuel -= 5;
-meal -= 5;
-water -= 5;  
-                
-if(distanceTraveled >= distanceTotal){
-spaceshipDestination = true;
- System.out.println("Congratulations, you have successfully reached your destination.");
- }
- }   
- //We use the following cycle to define the limit of the special trip, when the resources are less than or equal to 0
-if(HealthStatus <= 10){
-System.out.println("The spaceship has just suffered permanent damage. This is the end of your journey");    
-}else if (fuel > 0 && meal > 0 && water > 0){
-System.out.println("Sorry, you're out of resources.The journey is over");
-}
-}
+        System.out.println("Please fasten your seatbelts, the journey has begun");  
+        while (!spaceshipDestination && HealthStatus > 0 && fuel > 0 && meal > 0 && water > 0){
+         simulations();
+         showTripStatus();
+         if(distanceTraveled >= distance[selectedPlanet]){
+                spaceshipDestination = true;
+                System.out.println("Congratulations, you have successfully reached your destination.");
+            }
+         // Options menu for the crew member.
+         System.out.printf("Destino: %s\n", planet[selectedPlanet]);
+         System.out.printf("Nave: %s\n", spaceships[selectedSpaceship]);
+         System.out.printf("Distance: %.1f km\n", distance[distanceTraveled]);
+        
+         System.out.println("Simulación en progreso:");
+         System.out.println("\n What do you want to do?");
+        System.out.println("1. I choose to do nothing and just observe.");
+        System.out.println("2. I'm going to perform maintenance on the spaceship.");
+        System.out.println("3. I'm going to change course");
+        int option= entranceValide(scanner, 1, 3);
+             switch (option) {
+            case 1:
+            System.out.println("You decided to do nothing and watch."); 
+             break;
+             case 2:
+            if (fuel >= 10) {
+             makeRepairs();   
+            }else{
+             System.out.println("You no longer have resources!!!!");
+             }
+             case 3: 
+            changeCourse();
+             break;            
+            default:
+        System.out.println("This option is not valid");
+         break;
+        
+         }
+         //trip in progress
+        distanceTraveled += 10;
+        fuel -= 5;
+        meal -= 5;
+        water -= 5;  
+                        
+        if(distanceTraveled >= distanceTotal){
+        spaceshipDestination = true;
+         System.out.println("Congratulations, you have successfully reached your destination.");
+         }
+         }   
+         //We use the following cycle to define the limit of the special trip, when the resources are less than or equal to 0
+        if(HealthStatus <= 10){
+        System.out.println("The spaceship has just suffered permanent damage. This is the end of your journey");    
+        }else if (fuel > 0 && meal > 0 && water > 0){
+        System.out.println("Sorry, you're out of resources.The journey is over");
+        }
+        } 
 private static void showTripStatus() {
 //We created a method to show the journey of space travel and everything that is being done          
 double progress = (double)distanceTraveled / distanceTotal * 100;
@@ -199,11 +211,15 @@ System.out.println("\n space travel progress: " + String.format("%.2f", progress
 System.out.println("This is your available fuel: " + fuel);
 System.out.println("This is your water level: " + water);
 System.out.println("This is your food level: " + meal);
-System.out.println("this is your state: " + HealthStatus + "/100");
         }
         
-                //creation of random events or simulations 
-         private static final Random rand = new Random();
+                
+        
+        
+        
+        
+//creation of random events or simulations 
+private static final Random rand = new Random();
  private static void simulations() {
     int events = rand.nextInt(5);  
     //We will use 5 possible event simulations.
