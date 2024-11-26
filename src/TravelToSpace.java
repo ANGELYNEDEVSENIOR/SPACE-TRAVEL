@@ -54,7 +54,7 @@ switch (decided) {
         break;
         case 2:
         if (selectPlanet != -1) {
-                selectedSpaceship = selectionSpaceships();
+                selectedSpaceship = selectionSpaceships(scanner);
                 passengers = enterPassengers(scanner);   
         }else{
                 System.out.println("first you have to select a planet");
@@ -243,30 +243,22 @@ private static void makeRepairs() {
 
 
 //We perform private classes for each option and call the method
-private static void selectionSpaceships() {
-        System.out.println("Please select the spaceship you like the most: ");
-        System.out.println("1. ATLANTIS");
-        System.out.println("2. DISCOVERY");
-        System.out.println("3. DEATH STAR");
-        System.out.println("4. GALACTICA");
-        int option = scanner.nextInt();
-        switch (option) {
-        case 1:
-        System.out.println("Fabulous you chose the incredible Atlantis"); 
-        break;
-        case 2: 
-        System.out.println("Fabulous you chose the incredible Discovery"); 
-        break;
-        case 3:
-        System.out.println("Fabulous you chose the incredible Death star");   
-        break;
-        case 4:
-        System.out.println("Fabulous you chose the incredible Galactica");
-        break;
-        default:
-        System.out.println("No more spaceships, sorry.");   
-        break;
+private static int selectionSpaceships(Scanner scanner) {
+       
+        System.out.println("\n=== Please select the spaceship you like the most: ===");
+        for (int i = 0; i < spaceships.length; i++) {
+            System.out.printf("%d. %s (Speed: %.1f km/h)\n", i + 1, spaceships[i], speed[i]);
         }
+        System.out.print("Elige una nave: ");
+        int opcion = scanner.nextInt();
+        if (opcion >= 1 && opcion <= spaceships.length) {
+            System.out.printf("Has seleccionado: %s\n", spaceships[opcion - 1]);
+            return opcion - 1;
+        } else {
+            System.out.println("Opción no válida. Intenta nuevamente.");
+            return -1;
+        }
+    }
 }
 
 //  This is a method for selecting a planet.              
