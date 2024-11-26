@@ -42,7 +42,7 @@ int option;
 //add a new method to provide several possible options for the user to select
 while(true){
 ShowMenu();
-int decided = entranceValide(scanner, 1, 5);
+int decided = entranceValide(scanner, 1, 6);
 switch (decided) {
         case 1:
                 printPlanetString();
@@ -55,9 +55,17 @@ switch (decided) {
         break;
         case 4: 
               resources(scanner);
-        break;      
+        break;
+        case 5: showTripStatus(); 
+
+        break;  
+        case 6:
+            System.out.println("Exiting the game. Goodbye!");
+            System.exit(0); // Termina el programa.
+        break;
+
         default:
-        System.out.println("invalid option");
+        System.out.println("Invalid option");
         break;
 }
 }
@@ -96,7 +104,8 @@ private static void resources(Scanner scanner) {
            
 //start with the journey
 private static void startOurInterPlanetaryJourney(Scanner scanner) {
-System.out.println("Please fasten your seatbelts, the journey has begun");  
+System.out.println("Please fasten your seatbelts, the journey has begun"); 
+ 
 while (!spaceshipDestination && HealthStatus > 0 && fuel > 0 && meal > 0 && water > 0){
  simulations();
  showTripStatus();
