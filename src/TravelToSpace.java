@@ -146,6 +146,11 @@ while (!spaceshipDestination && HealthStatus > 0 && fuel > 0 && meal > 0 && wate
  simulations();
  showTripStatus();
  // Options menu for the crew member.
+ System.out.printf("Destino: %s\n", planet[selectedPlanet]);
+ System.out.printf("Nave: %s\n", spaceships[selectedSpaceship]);
+ System.out.printf("Distance: %.1f km\n", distance[distanceTraveled]);
+
+ System.out.println("Simulación en progreso:");
  System.out.println("\n What do you want to do?");
 System.out.println("1. I choose to do nothing and just observe.");
 System.out.println("2. I'm going to perform maintenance on the spaceship.");
@@ -167,6 +172,7 @@ int option= entranceValide(scanner, 1, 3);
     default:
 System.out.println("This option is not valid");
  break;
+
  }
  //trip in progress
 distanceTraveled += 10;
