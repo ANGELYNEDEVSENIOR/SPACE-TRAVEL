@@ -6,8 +6,10 @@ import java.util.Scanner;
 public class TravelToSpace {
 // We write the actions and modulate them to structure them better.
 private static int distanceTotal = 100; 
-private static int distanceTraveled = 0; // distance traveled
-private static int HealthStatus = 100; // It is the state of each person in the crew.
+private static int distanceTraveled = 0; 
+// distance traveled
+private static int HealthStatus = 100; 
+// It is the state of each person in the crew.
 //We carry out private classes to indicate the resources we need and the percentage that each one has
 private static int fuel = 100;
 private static int meal = 100;
@@ -34,36 +36,57 @@ static String[] planet = { "Mars", "Mercury", "Saturn", "Jupiter", "Neptune", "V
 // We do the distances with double
 static Double[] distance = { 54.6, 91.7, 1345.0, 965.0, 4351.0, 61.0, 2723.0 };
 // We apply velocities to each of the spacecraft.
-static Double[] speed = { 1000.0, 2100.0, 2700.0, 3400.0 };
+static Double[] speed = { 10000.0, 21000.0, 27000.0, 34000.0 }; //speed km/h
 
- static Scanner scanner = new Scanner(System.in);
+static Scanner scanner = new Scanner(System.in);
 public static void main(String[] args) throws Exception {
 int option;
+int  selectPlanet = -1;
+int selectionSpaceships = -1;
+int passengers = 0;
 //add a new method to provide several possible options for the user to select
 while(true){
 ShowMenu();
 int decided = entranceValide(scanner, 1, 5);
 switch (decided) {
         case 1:
-                printPlanetString();
+             selectPlanet = selectedPlanet(scanner);
         break;
         case 2:
                 selectionSpaceships();
         break;
-        case 3:
-                startOurInterPlanetaryJourney(scanner);
+         case 3:
+                 startOurInterPlanetaryJourney(scanner);
         break;
         case 4: 
-              resources(scanner);
+                resources(scanner);
         break;      
         default:
         System.out.println("invalid option");
         break;
-}
-}
-}
-
-private static int entranceValide(Scanner scanner, int min, int max) {
+             }
+             }
+             }
+             
+ private static int selectedPlanet(Scanner scanner) {
+         System.out.println("\n=== planet selection ===");
+         for (int i = 0; i < planet.length; i++) {
+             System.out.printf("%d. %s (%.1f millions of km)\n", i + 1, planet[i], distance[i]);
+         }
+         System.out.print("choose a planet please: ");
+         int opcion = scanner.nextInt();
+         if (opcion >= 1 && opcion <= planet.length) {
+             System.out.printf("you have selected: %s\n", planet[opcion - 1]);
+             return opcion - 1;
+         } else {
+             System.out.println("This option is not valid. I'm sorry");
+             return -1;
+         }
+        
+                    
+             }
+             
+             private static int entranceValide(Scanner scanner, int min, int max) {
     int entrance;
     while (true) {
     try {
@@ -276,5 +299,3 @@ break;
 }
 
 }
-
-     
