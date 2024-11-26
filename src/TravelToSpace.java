@@ -1,289 +1,244 @@
-
 import java.util.Random;
 import java.util.Scanner;
 
-//  [] {} \
 public class TravelToSpace {
-// We write the actions and modulate them to structure them better.
-private static int distanceTotal = 100; 
-private static int distanceTraveled = 0; // distance traveled
-private static int HealthStatus = 100; // It is the state of each person in the crew.
-//We carry out private classes to indicate the resources we need and the percentage that each one has
-private static int fuel = 100;
-private static int meal = 100;
-private static int water = 100;
-private static boolean spaceshipDestination = false;
+    // Variables principales del estado del viaje
+    private static int HealthStatus = 100; // Estado de salud de la tripulación
+    private static int fuel = 100; // Combustible restante (%)
+    private static int meal = 100; // Comida restante (%)
+    private static int water = 100; // Agua restante (%)
+    private static boolean spaceshipDestination = false; // Indica si se ha llegado al destino
 
+    // Definición de planetas y distancias (en millones de km)
+    private static final String[] planet = {"Mars", "Venus", "Saturn", "Jupiter", "Neptune", "Mercury", "Uranus"};
+    private static final double[] distance = {54.6, 61.0, 1345.0, 965.0, 4351.0, 91.7, 2723.0}; 
 
-public static void ShowMenu() {
-        System.out.println("\n---WELCOME TO OUR INTERPLANETARY JOURNEY---- ");
-        System.out.println("\n --- Main Menu----");
-        System.out.println("1. select the planet you want to visit");
+    // Naves espaciales y velocidades (en km/h)
+    private static final String[] spaceships = {"Atlantis", "Discovery", "Death Star", "Galactica"};
+    private static final double[] speed = {1000.0, 2100.0, 2700.0, 3400.0};
+
+    // Variables de selección del usuario
+    private static int selectedPlanetIndex = -1; // Índice del planeta seleccionado
+    private static int selectedSpaceshipIndex = -1; // Índice de la nave seleccionada
+
+    // Objetos auxiliares
+    private static final Random rand = new Random(); // Generador de eventos aleatorios
+    private static final Scanner scanner = new Scanner(System.in); // Entrada del usuario
+
+    public static void main(String[] args) {
+        System.out.println("---WELCOME TO OUR INTERPLANETARY JOURNEY---"); // Mensaje de bienvenida
+
+        // Bucle principal del programa
+        while (true) {
+            ShowMenu(); // Mostrar el menú principal
+            int option = entranceValide(scanner, 1, 6); // Leer opción válida del usuario
+            switch (option) {
+                case 1:
+                    selectPlanet(); // Selección de planeta
+                    break;
+                case 2:
+                    selectSpaceship(); // Selección de nave espacial
+                    break;
+                case 3:
+                    if (selectedPlanetIndex == -1 || selectedSpaceshipIndex == -1) {
+                        // Validar que se haya seleccionado un planeta y nave antes de comenzar el viaje
+                        System.out.println("Please select a planet and spaceship before starting the journey!");
+                    } else {
+                        startOurInterPlanetaryJourney(); // Comenzar el viaje
+                    }
+                    break;
+                case 4:
+                    adjustResources(); // Ajustar recursos del viaje
+                    break;
+                case 5:
+                    showTripStatus(); // Mostrar el progreso actual del viaje
+                    break;
+                case 6:
+                    System.out.println("Exiting the program. Safe travels!"); // Salir del programa
+                    return; // Terminar el programa
+                default:
+                    System.out.println("Invalid option. Try again."); // Manejo de entrada inválida
+            }
+        }
+    }
+
+    // Método para mostrar el menú principal
+    private static void ShowMenu() {
+        System.out.println("\n--- Main Menu ---");
+        System.out.println("1. Select the planet you want to visit");
         System.out.println("2. Select a spaceship");
-        System.out.println("3. start our interplanetary journey");
-        System.out.println("4. I need to adjust resources");
-        System.out.println("5. I want you to show me the progress of my journey.");
-        System.out.println("6. I'M NOT READY! I WANT TO GO OUT");
-        System.out.println("please choose an option: ");
+        System.out.println("3. Start the interplanetary journey");
+        System.out.println("4. Adjust resources");
+        System.out.println("5. Show journey progress");
+        System.out.println("6. Exit");
+        System.out.print("Please choose an option: ");
+    }
+
+    // Método para validar la entrada del usuario
+    private static int entranceValide(Scanner scanner, int min, int max) {
+        while (true) {
+            try {
+                int input = Integer.parseInt(scanner.nextLine());
+                if (input >= min && input <= max) {
+                    return input; // Retorna la opción si está dentro del rango permitido
+                } else {
+                    System.out.print("Please enter a number between " + min + " and " + max + ": ");
+                }
+            } catch (NumberFormatException e) {
+                System.out.print("Invalid input. Try again: "); // Manejo de errores en la entrada
+            }
         }
-        
-// I declare an arrangement of the planets that exist: we define the planets
-static String[] planet = { "Mars", "Mercury", "Saturn", "Jupiter", "Neptune", "Venus", "Uranus" };
-// We are going to declare a set of spaceships ready for the journey.
- static String[] spaceships = { "Atlantis", "Discovery", "Death-Star", "Galactica" };
-// We do the distances with double
-static Double[] distance = { 54.6, 91.7, 1345.0, 965.0, 4351.0, 61.0, 2723.0 };
-// We apply velocities to each of the spacecraft.
-static Double[] speed = { 1000.0, 2100.0, 2700.0, 3400.0 };
+    }
 
- static Scanner scanner = new Scanner(System.in);
-public static void main(String[] args) throws Exception {
-int option;
-//add a new method to provide several possible options for the user to select
-while(true){
-ShowMenu();
-int decided = entranceValide(scanner, 1, 6);
-switch (decided) {
-        case 1:
-                printPlanetString();
-        break;
-        case 2:
-                selectionSpaceships();
-        break;
-        case 3:
-                startOurInterPlanetaryJourney(scanner);
-        break;
-        case 4: 
-              resources(scanner);
-        break;
-        case 5: showTripStatus(); 
-
-        break;  
-        case 6:
-            System.out.println("Exiting the game. Goodbye!");
-            System.exit(0); // Termina el programa.
-        break;
-
-        default:
-        System.out.println("Invalid option");
-        break;
-}
-}
-}
-
-private static int entranceValide(Scanner scanner, int min, int max) {
-    int entrance;
-    while (true) {
-    try {
-    //Integer.parseInt(...) intenta convertir esa entrada de texto en un número entero (int).
-    entrance = Integer.parseInt(scanner.nextLine());
-    if (entrance >= min && entrance <= max) {
-     return entrance;
-     } else {
-     System.out.print("Por favor, ingrese un número entre " + min + " y " + max + ": ");
-     }
-//In this case, the catch block catches the exception and displays a message to the user 
-//indicating that the input is invalid. The loop then repeats, again asking the user to try valid input.
-     } catch (NumberFormatException e) {
-      System.out.print("Entrada no válida. Intente nuevamente: ");
- }
- }
-}
-
-//We create a method so that the user can choose their resources  
-private static void resources(Scanner scanner) {
- System.out.print("How many resources do you need for each element (0-100 %)?");   
- int amount = entranceValide(scanner, 0, 100);
- fuel = amount;
- water = amount;
- meal = amount;
- System.out.println("you have adjusted the fuel to: "+ fuel + "%");   
- System.out.println("you have adjusted the water to: "+ water + "%");     
- System.out.println("have you adjusted the food to: "+ meal + "%");  
- }
-           
-//start with the journey
-private static void startOurInterPlanetaryJourney(Scanner scanner) {
-System.out.println("Please fasten your seatbelts, the journey has begun"); 
- 
-while (!spaceshipDestination && HealthStatus > 0 && fuel > 0 && meal > 0 && water > 0){
- simulations();
- showTripStatus();
- // Options menu for the crew member.
- System.out.println("\n What do you want to do?");
-System.out.println("1. I choose to do nothing and just observe.");
-System.out.println("2. I'm going to perform maintenance on the spaceship.");
-System.out.println("3. I'm going to change course");
-int option= entranceValide(scanner, 1, 3);
-     switch (option) {
-    case 1:
-    System.out.println("You decided to do nothing and watch."); 
-     break;
-     case 2:
-    if (fuel >= 10) {
-     makeRepairs();   
-    }else{
-     System.out.println("You no longer have resources!!!!");
-     }
-     case 3: 
-    changeCourse();
-     break;            
-    default:
-System.out.println("This option is not valid");
- break;
- }
- //trip in progress
-distanceTraveled += 10;
-fuel -= 5;
-meal -= 5;
-water -= 5;  
-                
-if(distanceTraveled >= distanceTotal){
-spaceshipDestination = true;
- System.out.println("Congratulations, you have successfully reached your destination.");
- }
- }   
- //We use the following cycle to define the limit of the special trip, when the resources are less than or equal to 0
-if(HealthStatus <= 0){
-System.out.println("The spaceship has just suffered permanent damage. This is the end of your journey");    
-}else if (fuel > 0 && meal > 0 && water > 0){
-System.out.println("Sorry, you're out of resources.The journey is over");
-}
-}
-private static void showTripStatus() {
-//We created a method to show the journey of space travel and everything that is being done          
-double progress = (double)distanceTraveled / distanceTotal * 100;
-System.out.println("\n space travel progress: " + String.format("%.2f", progress) + "%");
-System.out.println("This is your available fuel: " + fuel);
-System.out.println("This is your water level: " + water);
-System.out.println("This is your food level: " + meal);
-System.out.println("this is your state: " + HealthStatus + "/100");
+    // Método para seleccionar un planeta
+    private static void selectPlanet() {
+        System.out.println("Select the planet you want to visit:");
+        for (int i = 0; i < planet.length; i++) {
+            System.out.println((i + 1) + ". " + planet[i]); // Lista de planetas
         }
-        
-                //creation of random events or simulations 
-         private static final Random rand = new Random();
- private static void simulations() {
-    int events = rand.nextInt(5);  
-    //We will use 5 possible event simulations.
-    switch (events) {
-        case 1:
-          System.out.println("The spacecraft suffered a system failure. Your health has been affected."); 
-          HealthStatus -=20; 
-       break;
-       case 2:
-           System.out.println("You have found a supernova!!!"); 
-           System.out.println("you have gained more speed");
-           fuel +=10;
-       break;
-       case 3:
-       System.out.println("DANGER!!! A meteorite collided with the spacecraft.");
-       HealthStatus -=30;
-       fuel -=10;
-       water -=10;
-       meal -=15;
-       System.out.println("We lose resources");    
-       break;
-       case 4:
-           System.out.println("We pass too close to a black hole and lose fuel."); 
-           fuel -=20;
-       break;
-       case 5:
-           System.out.println("! A shooting star has passed very close! the spaceship continues on its way"); 
-       break;
+        selectedPlanetIndex = entranceValide(scanner, 1, planet.length) - 1; // Guardar la selección
+        System.out.println("You have selected: " + planet[selectedPlanetIndex]);
+    }
 
-    }      
+    // Método para seleccionar una nave espacial
+    private static void selectSpaceship() {
+        System.out.println("Select your spaceship:");
+        for (int i = 0; i < spaceships.length; i++) {
+            System.out.println((i + 1) + ". " + spaceships[i]); // Lista de naves
         }
-        //We created a new method to change course.
-private static void changeCourse() {
-    distanceTraveled += 20;
-    fuel -= 20;
-    meal -=15;
-    water -=15;  
-    System.out.println("We inform you that we have successfully changed course.");                   
-}
-                //We created a method to be able to maintain the spaceship.
-private static void makeRepairs() {
- if (HealthStatus < 100) {
-    HealthStatus += 20;
-    fuel -= 10;
-    meal -= 10;
-    water -= 10;
- }else{
-    System.out.println("You have repaired the spaceship and improved its condition.");
- }
-    System.out.println("Perfect, you've fixed the spaceship and your resources are perfect.");   
- }                         
+        selectedSpaceshipIndex = entranceValide(scanner, 1, spaceships.length) - 1; // Guardar la selección
+        System.out.println("You have selected: " + spaceships[selectedSpaceshipIndex]);
+    }
 
+    // Método para ajustar los recursos
+    private static void adjustResources() {
+        System.out.print("Set the level for all resources (0-100%): ");
+        int level = entranceValide(scanner, 0, 100); // Entrada para ajustar los recursos
+        fuel = level;
+        meal = level;
+        water = level;
+        System.out.println("Resources have been adjusted.");
+    }
 
+    // Método para iniciar el viaje interplanetario
+    private static void startOurInterPlanetaryJourney() {
+        System.out.println("Starting the journey to " + planet[selectedPlanetIndex] + " using " + spaceships[selectedSpaceshipIndex]);
+        double planetDistance = distance[selectedPlanetIndex] * 1_000_000; // Distancia en kilómetros
+        double spaceshipSpeed = speed[selectedSpaceshipIndex];
+        double totalTravelTimeHours = planetDistance / spaceshipSpeed; // Tiempo total en horas
+        double totalTravelTimeDays = totalTravelTimeHours / 24; // Tiempo total en días
 
-//We perform private classes for each option and call the method
-private static void selectionSpaceships() {
-        System.out.println("Please select the spaceship you like the most: ");
-        System.out.println("1. ATLANTIS");
-        System.out.println("2. DISCOVERY");
-        System.out.println("3. DEATH STAR");
-        System.out.println("4. GALACTICA");
-        int option = scanner.nextInt();
-        switch (option) {
-        case 1:
-        System.out.println("Fabulous you chose the incredible Atlantis"); 
-        break;
-        case 2: 
-        System.out.println("Fabulous you chose the incredible Discovery"); 
-        break;
-        case 3:
-        System.out.println("Fabulous you chose the incredible Death star");   
-        break;
-        case 4:
-        System.out.println("Fabulous you chose the incredible Galactica");
-        break;
-        default:
-        System.out.println("No more spaceships, sorry.");   
-        break;
+        System.out.println("The journey will take approximately " + String.format("%.2f", totalTravelTimeDays) + " days.");
+        System.out.println("Let's begin!");
+
+        // Variables de progreso del viaje
+        double progressPercentage = 0.0;
+        double traveledDistance = 0.0;
+        double dailyTravelDistance = spaceshipSpeed * 24; // Distancia diaria
+
+        while (!spaceshipDestination) {
+            if (HealthStatus <= 0 || fuel <= 0 || meal <= 0 || water <= 0) {
+                // Si los recursos o la salud llegan a 0, el viaje termina
+                System.out.println("\nThe journey ends due to lack of resources or health issues.");
+                break;
+            }
+
+            traveledDistance += dailyTravelDistance; // Actualizar distancia recorrida
+            progressPercentage = Math.min((traveledDistance / planetDistance) * 100, 100); // Calcular progreso en porcentaje
+            fuel -= 5; // Reducir recursos
+            meal -= 5;
+            water -= 5;
+
+            System.out.println("\nDay " + String.format("%.2f", traveledDistance / dailyTravelDistance) +
+                               " - Progress: " + String.format("%.2f", progressPercentage) + "%");
+            showTripStatus(); // Mostrar el estado del viaje
+            simulations(); // Ejecutar eventos aleatorios
+
+            if (progressPercentage >= 100.0) {
+                spaceshipDestination = true; // Llegada al destino
+                System.out.println("\nCongratulations! You have reached " + planet[selectedPlanetIndex] + ".");
+                break;
+            }
+
+            System.out.println("\nWhat do you want to do?");
+            System.out.println("1. Do nothing.");
+            System.out.println("2. Perform maintenance.");
+            System.out.println("3. Change course.");
+            int option = entranceValide(scanner, 1, 3);
+
+            switch (option) {
+                case 1:
+                    System.out.println("You decided to continue the journey.");
+                    break;
+                case 2:
+                    makeRepairs(); // Realizar mantenimiento
+                    break;
+                case 3:
+                    changeCourse(); // Cambiar rumbo
+                    break;
+                default:
+                    System.out.println("Invalid option. Continuing journey.");
+            }
         }
+    }
+
+    // Método para mostrar el estado del viaje
+    private static void showTripStatus() {
+        System.out.println("Fuel: " + fuel + "%");
+        System.out.println("Water: " + water + "%");
+        System.out.println("Meal: " + meal + "%");
+        System.out.println("Health: " + HealthStatus + "/100");
+    }
+
+    // Método para eventos aleatorios durante el viaje
+    private static void simulations() {
+        int event = rand.nextInt(5); // Generar un evento aleatorio
+        switch (event) {
+            case 1:
+                System.out.println("A meteorite hit the spaceship!");
+                HealthStatus -= 30;
+                fuel -= 10;
+                water -= 10;
+                meal -= 15;
+                break;
+            case 2:
+                System.out.println("Found a supernova! Resources increased slightly.");
+                fuel += 5;
+                water += 5;
+                meal += 5;
+                break;
+            case 3:
+                System.out.println("Passed too close to a black hole. Fuel reduced.");
+                fuel -= 20;
+                break;
+            case 4:
+                System.out.println("Minor system failure. Health decreased.");
+                HealthStatus -= 10;
+                break;
+            case 5:
+                System.out.println("Clear skies ahead. No issues today.");
+                break;
+        }
+    }
+
+    // Método para realizar reparaciones
+    private static void makeRepairs() {
+        if (HealthStatus < 100) {
+            HealthStatus += 20;
+            fuel -= 10;
+            meal -= 10;
+            water -= 10;
+            System.out.println("Repairs completed. Health improved.");
+        } else {
+            System.out.println("The spaceship is already in perfect condition.");
+        }
+    }
+
+    // Método para cambiar el rumbo
+    private static void changeCourse() {
+        System.out.println("Course changed. Resources consumed.");
+        fuel -= 20;
+        meal -= 15;
+        water -= 15;
+    }
 }
-
-//  This is a method for selecting a planet.              
-private static void printPlanetString() {
-        System.out.println("Select the planet you want: ");
-        System.out.println("1. The red planet: Mars");
-        System.out.println("2. The Goddess Planet: Venus");
-        System.out.println("3. The planet with a ring: Saturn");
-        System.out.println("4. The largest planet: Jupiter");
-        System.out.println("5. The most distant planet: Neptune");
-        System.out.println("6. The most periodic planet: Mercury");
-        System.out.println("7. The most forgotten planet: Uranus");
-        System.out.println("8. I'm terrified of traveling so I'll stay on earth!!!");
-        int option = scanner.nextInt();
-        switch (option) {
-case 1:
-System.out.println("Perfect, you have selected the planet Mars.");
-break;
- case 2:
-System.out.println("Perfect, you have selected the planet Venus.");
- break;
-case 3:
-System.out.println("Perfect, you have selected the planet Saturn.");
-break;
-case 4:
-System.out.println("Perfect, you have selected the planet Jupiter.");
-break;
-case 5:
-System.out.println("Perfect, you have selected the planet Neptune.");
-break;
-case 6:
-System.out.println("Perfect, you have selected the planet Mercury.");
-break;
-case 7:
-System.out.println("Perfect, you have selected the planet Uranus");
-break;
-default:
- System.out.println("Wrong option, there are no planets anymore, remember?");
-break;
- }
-
-}
-
-}
-
-  
