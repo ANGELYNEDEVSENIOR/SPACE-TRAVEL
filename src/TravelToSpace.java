@@ -18,7 +18,7 @@ private static boolean spaceshipDestination = false;
 
 
 public static void ShowMenu() {
-        System.out.println("\n---WELCOME TO OUR INTERPLANETARY JOURNEY---- ");
+        System.out.println("\n--- WELCOME TO OUR INTERPLANETARY JOURNEY ---- ");
         System.out.println("\n --- Main Menu----");
         System.out.println("1. select the planet you want to visit");
         System.out.println("2. Select a spaceship");
@@ -152,7 +152,7 @@ private static void resources(Scanner scanner) {
 ///////////////////////start with the journey
 private static void startOurInterPlanetaryJourney(int selectedPlanet, int selectedSpaceship, int passengers) {
         System.out.println("Please fasten your seatbelts, the journey has begun");  
-        while (!spaceshipDestination && HealthStatus > 0 && fuel > 0 && meal > 0 && water > 0){
+        while (!spaceshipDestination && HealthStatus >= 0 && fuel > 0 && meal > 0 && water > 0){
          simulations();
          showTripStatus();
          if(distanceTraveled >= distance[selectedPlanet]){
@@ -162,7 +162,7 @@ private static void startOurInterPlanetaryJourney(int selectedPlanet, int select
          // Options menu for the crew member.
          System.out.printf("Destino: %s\n", planet[selectedPlanet]);
          System.out.printf("Nave: %s\n", spaceships[selectedSpaceship]);
-         System.out.printf("Distance: %.1f km\n", distance[distanceTraveled]);
+         System.out.printf("Distance: %.1f km\n", distance[selectedPlanet]);
         
          System.out.println("Simulación en progreso:");
          System.out.println("\n What do you want to do?");
@@ -214,12 +214,7 @@ System.out.println("This is your available fuel: " + fuel);
 System.out.println("This is your water level: " + water);
 System.out.println("This is your food level: " + meal);
         }
-        
-                
-        
-        
-        
-        
+            
 //creation of random events or simulations 
 private static final Random rand = new Random();
  private static void simulations() {
@@ -273,8 +268,6 @@ private static void makeRepairs() {
  }
     System.out.println("Perfect, you've fixed the spaceship and your resources are perfect.");   
  }                         
-
-
 
 //We perform private classes for each option and call the method
 private static int selectionSpaceships(Scanner scanner) {
