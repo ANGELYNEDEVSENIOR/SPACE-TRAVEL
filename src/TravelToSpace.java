@@ -40,49 +40,51 @@ static Double[] speed = { 10000.0, 21000.0, 27000.0, 34000.0 }; //speed km/h
 
 static Scanner scanner = new Scanner(System.in);
 public static void main(String[] args) throws Exception {
-    int option;
-    int selectPlanet = -1;
-    int selectedSpaceship = -1;
-    int passengers = 0;
-
-    while (true) {
-        ShowMenu();
-        int decided = entranceValide(scanner, 1, 7);
-        scanner.nextLine(); // Limpia el buffer después de entrada numérica
-
-        switch (decided) {
-            case 1:
-                selectPlanet = selectedPlanet(scanner);
-                break;
-            case 2:
-                if (selectPlanet != -1) {
-                    selectedSpaceship = selectionSpaceships(scanner);
-                    passengers = enterPassengers(scanner);
-                } else {
-                    System.out.println("Primero tienes que seleccionar un planeta.");
-                }
-                break;
-            case 3:
-                if (selectPlanet != -1 && selectedSpaceship != -1) {
-                    startOurInterPlanetaryJourney(selectPlanet, selectedSpaceship, passengers);
-                } else {
-                    System.out.println("Debes seleccionar un planeta y una nave antes de iniciar el viaje.");
-                }
-                break;
-            case 4:
-                resources(scanner);
-                break;
-            case 5:
-                showTripStatus();
-                break;
-            case 6:
-                System.out.println("¡HASTA LUEGO!");
-                return; // Terminar el programa
-            default:
-                System.out.println("Opción inválida. Intenta de nuevo.");
+int option;
+int  selectPlanet = -1;
+int selectedSpaceship = -1;
+int passengers = 0;
+//add a new method to provide several possible options for the user to select
+while(true){
+ShowMenu();
+int decided = entranceValide(scanner, 1, 8);
+switch (decided) {
+        case 1:
+             selectPlanet = selectedPlanet(scanner);
+        break;
+        case 2:
+        if (selectPlanet != -1) {
+                selectedSpaceship = selectionSpaceships(scanner);
+                passengers = enterPassengers(scanner);   
+         }else{
+        System.out.println("first you have to select a planet");
+         }
+                        
+        break;
+         case 3:
+        //selectPlanet != -1 && selectedSpaceship != -1 
+        if (selectPlanet != -1 && selectedSpaceship != -1 ) {
+        startOurInterPlanetaryJourney(selectPlanet, selectedSpaceship, passengers);
+        } else {
+        System.out.println("You must select a planet and a ship before starting the journey.");
         }
-    }
-}
+        break;
+                                 
+        case 4: 
+              resources(scanner);
+        break;  
+        case 5:
+              showTripStatus(); 
+              break;
+        case 6:
+        System.out.println("HASTA LUEGO!"); // Salir del programa
+         return; // Terminar el programa
+        default:
+              System.out.println("Invalid option. Try again."); // Manejo de entrada inválida
+           
+         }
+        }
+        }
                              
 private static int enterPassengers(Scanner scanner) {
         System.out.print("\nIngresa la cantidad de pasajeros: ");
