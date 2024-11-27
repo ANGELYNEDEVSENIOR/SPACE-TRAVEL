@@ -34,7 +34,7 @@ public class TravelToSpace {
             int option = entranceValide(scanner, 1, 6); // Leer opción válida del usuario
             switch (option) {
                 case 1:
-                    selectPlanet(); // Selección de planeta
+                    selectedPlanet(scanner); // Selección de planeta
                     break;
                 case 2:
                     selectSpaceship(); // Selección de nave espacial
@@ -91,14 +91,22 @@ public class TravelToSpace {
     }
 
     // Método para seleccionar un planeta
-    private static void selectPlanet() {
-        System.out.println("Select the planet you want to visit:");
+    private static int selectedPlanet(Scanner scanner) {
+        System.out.println("\n=== planet selection ===");
         for (int i = 0; i < planet.length; i++) {
-            System.out.println((i + 1) + ". " + planet[i]); // Lista de planetas
+         System.out.printf("%d. %s (%.1f millions of km)\n", i + 1, planet[i], distance[i]);
         }
-        selectedPlanetIndex = entranceValide(scanner, 1, planet.length) - 1; // Guardar la selección
-        System.out.println("You have selected: " + planet[selectedPlanetIndex]);
-    }
+        System.out.print("choose a planet please: ");
+        int opcion = scanner.nextInt();
+        if (opcion >= 1 && opcion <= planet.length) {
+        System.out.printf("you have selected: %s\n", planet[opcion - 1]);
+        return opcion - 1;
+        } else {
+        System.out.println("This option is not valid. I'm sorry");
+        return -1;
+        }
+                
+        }
 
     // Método para seleccionar una nave espacial
     private static void selectSpaceship() {
