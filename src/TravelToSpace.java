@@ -26,7 +26,7 @@ public class TravelToSpace {
     private static final Scanner scanner = new Scanner(System.in); // Entrada del usuario
 
     public static void main(String[] args) {
-        System.out.println("\n ==== WELCOME TO OUR INTERPLANETARY JOURNEY ===="); // Mensaje de bienvenida
+        System.out.println("---WELCOME TO OUR INTERPLANETARY JOURNEY---"); // Mensaje de bienvenida
 
         // Bucle principal del programa
         while (true) {
@@ -34,10 +34,10 @@ public class TravelToSpace {
             int option = entranceValide(scanner, 1, 6); // Leer opción válida del usuario
             switch (option) {
                 case 1:
-                    selectedPlanet(scanner); // Selección de planeta
+                    selectPlanet(); // Selección de planeta
                     break;
                 case 2:
-                selectionSpaceships(scanner); // Selección de nave espacial
+                    selectSpaceship(); // Selección de nave espacial
                     break;
                 case 3:
                     if (selectedPlanetIndex == -1 || selectedSpaceshipIndex == -1) {
@@ -64,7 +64,7 @@ public class TravelToSpace {
 
     // Método para mostrar el menú principal
     private static void ShowMenu() {
-        System.out.println("\n ======== Main Menu =========");
+        System.out.println("\n--- Main Menu ---");
         System.out.println("1. Select the planet you want to visit");
         System.out.println("2. Select a spaceship");
         System.out.println("3. Start the interplanetary journey");
@@ -91,41 +91,24 @@ public class TravelToSpace {
     }
 
     // Método para seleccionar un planeta
-    private static int selectedPlanet(Scanner scanner) {
-        System.out.println("\n=== planet selection ===");
+    private static void selectPlanet() {
+        System.out.println("Select the planet you want to visit:");
         for (int i = 0; i < planet.length; i++) {
-         System.out.printf("%d. %s (%.1f millions of km)\n", i + 1, planet[i], distance[i]);
+            System.out.println((i + 1) + ". " + planet[i]); // Lista de planetas
         }
-        System.out.print("choose a planet please: ");
-        int opcion = scanner.nextInt();
-        if (opcion >= 1 && opcion <= planet.length) {
-        System.out.printf("you have selected: %s\n", planet[opcion - 1]);
-        return opcion - 1;
-        } else {
-        System.out.println("This option is not valid. I'm sorry");
-        return -1;
-        }
-                
-        }
+        selectedPlanetIndex = entranceValide(scanner, 1, planet.length) - 1; // Guardar la selección
+        System.out.println("You have selected: " + planet[selectedPlanetIndex]);
+    }
 
     // Método para seleccionar una nave espacial
-    private static int selectionSpaceships(Scanner scanner) {
-       
-        System.out.println("\n=== Please select the spaceship you like the most: ===");
+    private static void selectSpaceship() {
+        System.out.println("Select your spaceship:");
         for (int i = 0; i < spaceships.length; i++) {
-            System.out.printf("%d. %s (Speed: %.1f km/h)\n", i + 1, spaceships[i], speed[i]);
+            System.out.println((i + 1) + ". " + spaceships[i]); // Lista de naves
         }
-        System.out.print("Elige una nave: ");
-        int opcion = scanner.nextInt();
-        if (opcion >= 1 && opcion <= spaceships.length) {
-            System.out.printf("Has seleccionado: %s\n", spaceships[opcion - 1]);
-            return opcion - 1;
-        } else {
-            System.out.println("Opción no válida. Intenta nuevamente.");
-            return -1;
-        }
-    }            
-
+        selectedSpaceshipIndex = entranceValide(scanner, 1, spaceships.length) - 1; // Guardar la selección
+        System.out.println("You have selected: " + spaceships[selectedSpaceshipIndex]);
+    }
 
     // Método para ajustar los recursos
     private static void adjustResources() {
