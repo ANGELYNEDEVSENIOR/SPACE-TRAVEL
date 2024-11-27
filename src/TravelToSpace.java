@@ -88,7 +88,7 @@ switch (decided) {
                              
 private static int enterPassengers(Scanner scanner) {
         System.out.print("\nIngresa la cantidad de pasajeros: ");
-        System.out.print("Recuerda que maximo pueden ir 7 personas");
+       
 
         int passengers = scanner.nextInt();
         scanner.nextLine();
