@@ -37,7 +37,7 @@ public class TravelToSpace {
                     selectedPlanet(scanner); // Selección de planeta
                     break;
                 case 2:
-                    selectSpaceship(); // Selección de nave espacial
+                selectionSpaceships(scanner); // Selección de nave espacial
                     break;
                 case 3:
                     if (selectedPlanetIndex == -1 || selectedSpaceshipIndex == -1) {
@@ -109,14 +109,23 @@ public class TravelToSpace {
         }
 
     // Método para seleccionar una nave espacial
-    private static void selectSpaceship() {
-        System.out.println("Select your spaceship:");
+    private static int selectionSpaceships(Scanner scanner) {
+       
+        System.out.println("\n=== Please select the spaceship you like the most: ===");
         for (int i = 0; i < spaceships.length; i++) {
-            System.out.println((i + 1) + ". " + spaceships[i]); // Lista de naves
+            System.out.printf("%d. %s (Speed: %.1f km/h)\n", i + 1, spaceships[i], speed[i]);
         }
-        selectedSpaceshipIndex = entranceValide(scanner, 1, spaceships.length) - 1; // Guardar la selección
-        System.out.println("You have selected: " + spaceships[selectedSpaceshipIndex]);
-    }
+        System.out.print("Elige una nave: ");
+        int opcion = scanner.nextInt();
+        if (opcion >= 1 && opcion <= spaceships.length) {
+            System.out.printf("Has seleccionado: %s\n", spaceships[opcion - 1]);
+            return opcion - 1;
+        } else {
+            System.out.println("Opción no válida. Intenta nuevamente.");
+            return -1;
+        }
+    }            
+
 
     // Método para ajustar los recursos
     private static void adjustResources() {
