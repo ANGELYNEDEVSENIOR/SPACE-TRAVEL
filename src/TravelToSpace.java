@@ -47,7 +47,7 @@ int passengers = 0;
 //add a new method to provide several possible options for the user to select
 while(true){
 ShowMenu();
-int decided = entranceValide(scanner, 1, 7);
+int decided = entranceValide(scanner, 1, 8);
 switch (decided) {
         case 1:
              selectPlanet = selectedPlanet(scanner);
@@ -88,9 +88,11 @@ switch (decided) {
                              
 private static int enterPassengers(Scanner scanner) {
         System.out.print("\nIngresa la cantidad de pasajeros: ");
-        System.out.println("Recuerda que maximo pueden ir 7 personas");
+       
         int passengers = scanner.nextInt();
-        if (passengers > 0) {
+        scanner.nextLine();
+
+        if (passengers > 0 && passengers <= 7) {
             System.out.printf("Cantidad de pasajeros: %d\n", passengers);
             return passengers;
         } else {
