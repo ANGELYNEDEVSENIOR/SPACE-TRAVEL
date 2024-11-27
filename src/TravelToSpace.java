@@ -163,7 +163,7 @@ private static void startOurInterPlanetaryJourney(int selectedPlanet, int select
          // Options menu for the crew member.
          System.out.printf("Destino: %s\n", planet[selectedPlanet]);
          System.out.printf("Nave: %s\n", spaceships[selectedSpaceship]);
-         System.out.printf("Distance: %.1f km\n", distance[distanceTraveled]);
+         System.out.printf("Distance: %.1f km\n", distance[selectedPlanet]);
         
          System.out.println("Simulación en progreso:");
          System.out.println("\n What do you want to do?");
@@ -174,6 +174,7 @@ private static void startOurInterPlanetaryJourney(int selectedPlanet, int select
              switch (option) {
             case 1:
             System.out.println("You decided to do nothing and watch."); 
+            simulations();
              break;
              case 2:
             if (fuel >= 10) {
