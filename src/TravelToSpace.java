@@ -26,7 +26,7 @@ public class TravelToSpace {
     private static final Scanner scanner = new Scanner(System.in); // Entrada del usuario
 
     public static void main(String[] args) {
-        System.out.println("---WELCOME TO OUR INTERPLANETARY JOURNEY---"); // Mensaje de bienvenida
+        System.out.println("\n ==== WELCOME TO OUR INTERPLANETARY JOURNEY ===="); // Mensaje de bienvenida
 
         // Bucle principal del programa
         while (true) {
@@ -64,7 +64,7 @@ public class TravelToSpace {
 
     // Método para mostrar el menú principal
     private static void ShowMenu() {
-        System.out.println("\n--- Main Menu ---");
+        System.out.println("\n ======== Main Menu =========");
         System.out.println("1. Select the planet you want to visit");
         System.out.println("2. Select a spaceship");
         System.out.println("3. Start the interplanetary journey");
