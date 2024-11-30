@@ -18,7 +18,8 @@ private static boolean spaceshipDestination = false;
 
 
 public static void ShowMenu() {
-        System.out.println("\n--- WELCOME TO OUR INTERPLANETARY JOURNEY ---- ");
+    System.out.println("********************************************************");
+        System.out.println("\n======== WELCOME TO OUR INTERPLANETARY JOURNEY ========= ");
         System.out.println("\n --- Main Menu----");
         System.out.println("1. select the planet you want to visit");
         System.out.println("2. Select a spaceship");
@@ -26,7 +27,8 @@ public static void ShowMenu() {
         System.out.println("4. I need to adjust resources");
         System.out.println("5. I want you to show me the progress of my journey.");
         System.out.println("6. I'M NOT READY! I WANT TO GO OUT");
-        System.out.println("please choose an option: ");
+        System.out.println("Please choose an option: ");
+        System.out.println("****************************************************");
         }
         
 // I declare an arrangement of the planets that exist: we define the planets
@@ -223,12 +225,12 @@ private static final Random rand = new Random();
 switch (events) {
 case 1:
 System.out.println("The spacecraft suffered a system failure. Your health has been affected."); 
-HealthStatus -=20; 
+HealthStatus -= 20; 
 break;
 case 2:
 System.out.println("You have found a supernova!!!"); 
 System.out.println("you have gained more speed");
-fuel +=10;
+fuel += 10;
 break;
 case 3:
 System.out.println("DANGER!!! A meteorite collided with the spacecraft.");
