@@ -77,7 +77,7 @@ switch (decided) {
               showTripStatus(); 
               break;
         case 6:
-        System.out.println("HASTA LUEGO!"); // Salir del programa
+        System.out.println("SEE YOU LATER!"); // Salir del programa
          return; // Terminar el programa
         default:
               System.out.println("Invalid option. Try again."); // Manejo de entrada inválida
@@ -87,17 +87,17 @@ switch (decided) {
         }
                              
 private static int enterPassengers(Scanner scanner) {
-        System.out.print("\nIngresa la cantidad de pasajeros: ");
+        System.out.print("\nEnter the number of passengers: ");
        
 
         int passengers = scanner.nextInt();
         scanner.nextLine();
 
         if (passengers > 0 && passengers <= 7) {
-            System.out.printf("Cantidad de pasajeros: %d\n", passengers);
+            System.out.printf("number of passengers: %d\n", passengers);
             return passengers;
         } else {
-            System.out.println("La cantidad de pasajeros debe ser positiva.");
+            System.out.println("The number of passengers must be positive.");
             return enterPassengers(scanner);
         }
 }
@@ -128,7 +128,7 @@ entrance = Integer.parseInt(scanner.nextLine());
 if (entrance >= min && entrance <= max) {
 return entrance;
 } else {
-System.out.print("Por favor, ingrese un número entre " + min + " y " + max + ": ");
+System.out.print("Please enter a number between " + min + " and " + max + ": ");
 }
 //In this case, the catch block catches the exception and displays a message to the user 
 //indicating that the input is invalid. The loop then repeats, again asking the user to try valid input.
@@ -224,7 +224,7 @@ private static final Random rand = new Random();
 switch (events) {
 case 1:
 System.out.println("The spacecraft suffered a system failure. Your health has been affected."); 
-HealthStatus -=20; 
+HealthStatus -=25; 
 break;
 case 2:
 System.out.println("You have found a supernova!!!"); 
